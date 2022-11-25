@@ -1,0 +1,21 @@
+.TodoList {
+    width: 600px;
+    border: 1px solid black;
+}
+.TodoList__item {
+    display: flex;
+    justify-content: space-between;
+    width: 400px;
+    align-items: center;
+    border: 1px solid black;
+    padding: 5px;
+    margin-top: 5px;
+}
+.TodoList__text {
+    margin-top: 0px;
+    color: blue;
+}
+.TodoList__button{
+    background-color: rebeccapurple;
+    color: whitesmoke;
+}

@@ -1,24 +1,30 @@
 import React, {Component} from "react";
 import TodoList from "./TodoList";
+import initialTodos from '../todos.json';
 
 class App extends Component {
   state = {
-    todos: [
-      { id: 'id-1', text: 'Попрацювати над React', completed: false },
-      { id: 'id-2', text: 'Позайматись англійською', completed: false },
-      { id: 'id-3', text: 'Підтягнутись, качнуть прес', completed: false },
-      { id: 'id-4', text: 'Повчити планування', completed: false },
-      { id: 'id-5', text: "Поспілкуватись з сім'єю", completed: false },
-      { id: 'id-6', text: 'Пошук роботи', completed: false },
-      
-    ],
+    todos: initialTodos,
   }
+  deleteTodo = (todoId) => {
+    this.setState(prevState => ({
+      todos: prevState.todos.filter(todo => todo.id !== todoId),
+      
+    }));
+  };
   render() {
     const { todos } = this.state;
+    const completedTodos = todos.reduce((acc, todo) => (todo.completed ? acc + 1 : acc), 0,);
+    console.log(completedTodos);
     return (
       <div>
         <h1>Список завдань</h1>
-          <TodoList todos={todos} />
+        <div>
+          <p>Загальна кількість пунктів:{initialTodos.length}</p>
+          <p>Кількість виконаних пунктів:{initialTodos.length - todos.length}</p>
+          <p>Залишилось пунктів:{todos.length }</p>
+        </div>
+        <TodoList todos={todos} onDeleteTodo={this.deleteTodo} />
       </div>
     );
   }
