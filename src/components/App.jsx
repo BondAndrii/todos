@@ -14,15 +14,17 @@ class App extends Component {
   };
   render() {
     const { todos } = this.state;
-    const completedTodos = todos.reduce((acc, todo) => (todo.completed ? acc + 1 : acc), 0,);
-    console.log(completedTodos);
+    const totalTodosCount = initialTodos.length;
+    const actualityTodosCount = todos.length;
+    const completedTodos = totalTodosCount - actualityTodosCount;
+    
     return (
       <div>
         <h1>Список завдань</h1>
         <div>
-          <p>Загальна кількість пунктів:{initialTodos.length}</p>
-          <p>Кількість виконаних пунктів:{initialTodos.length - todos.length}</p>
-          <p>Залишилось пунктів:{todos.length }</p>
+          <p>Загальна кількість пунктів:{totalTodosCount}</p>
+          <p>Кількість виконаних пунктів:{completedTodos}</p>
+          <p>Залишилось пунктів:{actualityTodosCount }</p>
         </div>
         <TodoList todos={todos} onDeleteTodo={this.deleteTodo} />
       </div>
