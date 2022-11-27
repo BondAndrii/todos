@@ -1,0 +1,18 @@
+.TodoEditor{
+    
+    display: flex;
+    justify-content: space-between;
+    width: 400px;
+    margin-left: 50px;
+    padding: 10px;
+    border: 1px solid blue;
+
+}
+.TodoEditor__button{
+    margin-left: 50px;
+    color: white;
+    background-color: blue;
+}
+.TodoEditor__textarea {
+    background-color: antiquewhite;
+}

@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import TodoList from "./TodoList";
+import TodoEditor from "./TodoEditor";
 import initialTodos from '../todos.json';
+import { nanoid } from "nanoid";
 
 class App extends Component {
   state = {
@@ -12,6 +14,18 @@ class App extends Component {
       
     }));
   };
+  addTodo = text => {    
+    const todo = {
+      id: nanoid(),
+      text,
+      completed: false,
+    }
+    this.setState(prevState => ({
+      todos: [...prevState.todos, todo ],
+      
+    }))
+    console.log(todo);
+  }
   toggleCompleted = todoId => {
     // this.setState(prevState => ({
     //   todos: prevState.todos.map(todo => {
@@ -38,13 +52,16 @@ class App extends Component {
     
     return (
       <div>
-        <h1>Список завдань</h1>
         <div>
           <p>Загальна кількість пунктів:{totalTodosCount}</p>
           <p>Кількість виконаних пунктів:{completedTodos}</p>
           <p>Залишилось пунктів:{actualityTodosCount }</p>
         </div>
-        <TodoList todos={todos} onDeleteTodo={this.deleteTodo} onToggleCompleted={ this.toggleCompleted} />
+        <TodoEditor onSubmit={this.addTodo} />
+        <h1>Список вдосконалень</h1>
+        
+        <TodoList todos={todos} onDeleteTodo={this.deleteTodo} onToggleCompleted={this.toggleCompleted} />
+        
       </div>
     );
   }
