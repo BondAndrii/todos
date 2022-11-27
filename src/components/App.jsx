@@ -7,6 +7,7 @@ import { nanoid } from "nanoid";
 class App extends Component {
   state = {
     todos: initialTodos,
+    filter: '',
   }
   deleteTodo = (todoId) => {
     this.setState(prevState => ({
@@ -43,9 +44,11 @@ class App extends Component {
       ),
       }))
   }
-  
+  changeFilter = (e) => {
+    this.setState({ filter: e.currentTarget.value });
+  }
   render() {
-    const { todos } = this.state;
+    const { todos, filter } = this.state;
     const totalTodosCount = initialTodos.length;
     const actualityTodosCount = todos.length;
     const completedTodos = totalTodosCount - actualityTodosCount;
@@ -59,7 +62,7 @@ class App extends Component {
         </div>
         <TodoEditor onSubmit={this.addTodo} />
         <h1>Список вдосконалень</h1>
-        
+        <label>Сортування по назві:<input type="text" value={filter} onChange={this.changeFilter} /></label>
         <TodoList todos={todos} onDeleteTodo={this.deleteTodo} onToggleCompleted={this.toggleCompleted} />
         
       </div>
