@@ -12,6 +12,24 @@ class App extends Component {
       
     }));
   };
+  toggleCompleted = todoId => {
+    // this.setState(prevState => ({
+    //   todos: prevState.todos.map(todo => {
+    //     if (todo.id === todoId) {
+    //       return { ...todo, completed: !todo.completed, };
+    //     }
+    //     return todo;
+    //   })
+    this.setState(prevState => ({
+      todos: prevState.todos.map(todo => todo.id === todoId
+        ? {
+          ...todo, completed: !todo.completed,
+        }
+        : todo,
+      ),
+      }))
+  }
+  
   render() {
     const { todos } = this.state;
     const totalTodosCount = initialTodos.length;
@@ -26,7 +44,7 @@ class App extends Component {
           <p>Кількість виконаних пунктів:{completedTodos}</p>
           <p>Залишилось пунктів:{actualityTodosCount }</p>
         </div>
-        <TodoList todos={todos} onDeleteTodo={this.deleteTodo} />
+        <TodoList todos={todos} onDeleteTodo={this.deleteTodo} onToggleCompleted={ this.toggleCompleted} />
       </div>
     );
   }

@@ -1,11 +1,13 @@
 [
       { "id": "id-1", "text": "Попрацювати над React", "completed": false },
       { "id": "id-2", "text": "Позайматись англійською", "completed": false },
-      { "id": "id-3", "text": "Підтягнутись, качнуть прес", "completed": false },
-      { "id": "id-4", "text": "Повчити планування", "completed": false },
-      { "id": "id-5", "text": "Поспілкуватись з сім`єю", "completed": false },
-      { "id": "id-6", "text": "Пошуку роботи", "completed": false },
-      { "id": "id-7", "text": "Запитати менеджера щодо переводу", "completed": true },
-      { "id": "id-8", "text": "З'їсти жабу", "completed": false }
+      { "id": "id-3", "text": "Підтягнутись", "completed": false },
+      { "id": "id-4", "text": "Качнуть прес", "completed": false },
+      { "id": "id-5", "text": "Побігати", "completed": false },
+      { "id": "id-6", "text": "Повчити планування", "completed": false },
+      { "id": "id-7", "text": "Поспілкуватись з сім`єю", "completed": false },
+      { "id": "id-8", "text": "Пошуку роботи", "completed": false },
+      { "id": "id-9", "text": "Запитати менеджера щодо переводу", "completed": false },
+      { "id": "id-10", "text": "З'їсти жабу", "completed": false }
            
 ]

@@ -19,3 +19,6 @@
     background-color: rebeccapurple;
     color: whitesmoke;
 }
+.TodoList__item--completed{
+    background-color: yellowgreen;
+}
