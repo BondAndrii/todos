@@ -1,8 +1,11 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
+import { nanoid } from "nanoid";
+import initialTodos from '../todos.json';
 import TodoList from "./TodoList";
 import TodoEditor from "./TodoEditor";
-import initialTodos from '../todos.json';
-import { nanoid } from "nanoid";
+import Filter from "./TodoList/Filter";
+
+
 
 class App extends Component {
   state = {
@@ -47,12 +50,14 @@ class App extends Component {
   changeFilter = (e) => {
     this.setState({ filter: e.currentTarget.value });
   }
+  
   render() {
     const { todos, filter } = this.state;
     const totalTodosCount = initialTodos.length;
     const actualityTodosCount = todos.length;
     const completedTodos = totalTodosCount - actualityTodosCount;
-    
+    const normalizedFilter = this.state.filter.toLocaleLowerCase();
+    const visibleTodos = this.state.todos.filter(todo => todo.text.toLowerCase().includes(normalizedFilter))
     return (
       <div>
         <div>
@@ -62,8 +67,9 @@ class App extends Component {
         </div>
         <TodoEditor onSubmit={this.addTodo} />
         <h1>Список вдосконалень</h1>
-        <label>Сортування по назві:<input type="text" value={filter} onChange={this.changeFilter} /></label>
-        <TodoList todos={todos} onDeleteTodo={this.deleteTodo} onToggleCompleted={this.toggleCompleted} />
+        <Filter value={filter} onChange={this.changeFilter } />
+        {/* <label>Сортування по назві:<input type="text" value={filter} onChange={this.changeFilter} /></label> */}
+        <TodoList todos={visibleTodos} onDeleteTodo={this.deleteTodo} onToggleCompleted={this.toggleCompleted} />
         
       </div>
     );
