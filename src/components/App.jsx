@@ -50,14 +50,17 @@ class App extends Component {
   changeFilter = (e) => {
     this.setState({ filter: e.currentTarget.value });
   }
-  
+  getVisibleTodos = () => {
+    const { todos, filter } = this.state;
+    const normalizedFilter = filter.toLocaleLowerCase();
+    return todos.filter(todo => todo.text.toLowerCase().includes(normalizedFilter))
+  }
   render() {
     const { todos, filter } = this.state;
     const totalTodosCount = initialTodos.length;
     const actualityTodosCount = todos.length;
-    const completedTodos = totalTodosCount - actualityTodosCount;
-    const normalizedFilter = this.state.filter.toLocaleLowerCase();
-    const visibleTodos = this.state.todos.filter(todo => todo.text.toLowerCase().includes(normalizedFilter))
+    const completedTodos = totalTodosCount - actualityTodosCount;    
+    const visibleTodos = this.getVisibleTodos();
     return (
       <div>
         <div>
