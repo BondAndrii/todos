@@ -4,18 +4,43 @@ import initialTodos from '../todos.json';
 import TodoList from "./TodoList";
 import TodoEditor from "./TodoEditor";
 import Filter from "./TodoList/Filter";
+import Modal from "./Modal";
 
 
 
 class App extends Component {
   state = {
+    // todos: [],
     todos: initialTodos,
     filter: '',
+    showModal: false,
   }
+  componentDidMount() {
+    console.log('componentDidMount')
+
+    const todos = localStorage.getItem('todos');
+    console.log("todos", todos)
+    const parsedTodos = JSON.parse(todos);
+    if (parsedTodos) {
+      this.setState({ todos: parsedTodos });
+    }
+    // console.log("parsedTodos", parsedTodos)
+    // this.setState({todos: parsedTodos})
+  }
+  componentDidUpdate(prevProps, prevState) {
+    console.log("componentDidUpdate");
+    // console.log(prevState);
+    // console.log(this.state);
+    if (this.state.todos !== prevState.todos) {
+      console.log("Змінилась кількість пунктів списку");
+      localStorage.setItem('todos', JSON.stringify(this.state.todos));
+    }
+  }
+ 
+   
   deleteTodo = (todoId) => {
     this.setState(prevState => ({
-      todos: prevState.todos.filter(todo => todo.id !== todoId),
-      
+      todos: prevState.todos.filter(todo => todo.id !== todoId),      
     }));
   };
   addTodo = text => {    
@@ -55,19 +80,33 @@ class App extends Component {
     const normalizedFilter = filter.toLocaleLowerCase();
     return todos.filter(todo => todo.text.toLowerCase().includes(normalizedFilter))
   }
+   toggleModal = () => {
+    this.setState(({showModal}) => ({
+      showModal: !showModal,
+    }))
+  }
   render() {
-    const { todos, filter } = this.state;
+    const { todos, filter, showModal} = this.state;
     const totalTodosCount = initialTodos.length;
     const actualityTodosCount = todos.length;
     const completedTodos = totalTodosCount - actualityTodosCount;    
     const visibleTodos = this.getVisibleTodos();
+    // const modalRoot = document.querySelector('modal-root');
+    // console.log(modalRoot);
     return (
       <div>
+        <button type="button" onClick={this.toggleModal}>Дістань модалку</button>
+        {showModal &&
+          <Modal onEsc={this.toggleModal}>
+          <h1>Модалка</h1>
+          <button type="button" onClick={this.toggleModal}>Сховай модалку</button>
+        </Modal> }
         <div>
           <p>Загальна кількість пунктів:{totalTodosCount}</p>
           <p>Кількість виконаних пунктів:{completedTodos}</p>
           <p>Залишилось пунктів:{actualityTodosCount }</p>
         </div>
+        
         <TodoEditor onSubmit={this.addTodo} />
         <h1>Список вдосконалень</h1>
         <Filter value={filter} onChange={this.changeFilter } />
