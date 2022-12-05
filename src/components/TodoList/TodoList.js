@@ -1,6 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
+import Todo from 'components/Todo/Todo';
 import './TodoList.css';
+
 
 const TodoList = ({ todos, onDeleteTodo, onToggleCompleted }) => 
 // со свойства props деструктуризируется свойство todos 
@@ -12,14 +14,12 @@ const TodoList = ({ todos, onDeleteTodo, onToggleCompleted }) =>
                 className={classNames("TodoList__item", {
                 "TodoList__item--completed": completed,
             })}>
-                <input
-                    type="checkbox"
-                    className='TodoList__checkbox'
-                    checked={completed}
-                    onChange={() => onToggleCompleted(id)}
+                <Todo
+                    text={text}
+                    completed={completed}
+                    onToggleCompleted={() => onToggleCompleted(id)}
+                    onDeleteTodo={() => onDeleteTodo(id)}
                 />
-                <p className='TodoList__text'>{text}</p>
-                <button className='TodoList__button' onClick={() => onDeleteTodo(id)}>Викреслити</button>
             </li>
         ))}
     </ul>

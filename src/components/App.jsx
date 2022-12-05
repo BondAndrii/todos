@@ -3,8 +3,9 @@ import { nanoid } from "nanoid";
 import initialTodos from '../todos.json';
 import TodoList from "./TodoList";
 import TodoEditor from "./TodoEditor";
-import Filter from "./TodoList/Filter";
+import Filter from "./Filter/Filter";
 import Modal from "./Modal";
+import IconButton from "./IconButton/IconButton";
 
 
 
@@ -80,10 +81,10 @@ class App extends Component {
     const normalizedFilter = filter.toLocaleLowerCase();
     return todos.filter(todo => todo.text.toLowerCase().includes(normalizedFilter))
   }
-   toggleModal = () => {
+  toggleModal = () => {
     this.setState(({showModal}) => ({
       showModal: !showModal,
-    }))
+  }))
   }
   render() {
     const { todos, filter, showModal} = this.state;
@@ -95,9 +96,10 @@ class App extends Component {
     // console.log(modalRoot);
     return (
       <div>
+        <IconButton>Открыть модалку</IconButton>
         <button type="button" onClick={this.toggleModal}>Дістань модалку</button>
         {showModal &&
-          <Modal onEsc={this.toggleModal}>
+          <Modal onClose={this.toggleModal}>
           <h1>Модалка</h1>
           <button type="button" onClick={this.toggleModal}>Сховай модалку</button>
         </Modal> }
