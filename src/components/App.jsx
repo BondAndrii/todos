@@ -6,6 +6,7 @@ import TodoEditor from "./TodoEditor";
 import Filter from "./Filter/Filter";
 import Modal from "./Modal";
 import IconButton from "./IconButton/IconButton";
+import { ReactComponent as GalIcon } from '../icons/galochka.svg';
 
 
 
@@ -29,12 +30,17 @@ class App extends Component {
     // this.setState({todos: parsedTodos})
   }
   componentDidUpdate(prevProps, prevState) {
-    console.log("componentDidUpdate");
+    const nextTodos = this.state.todos;
+    const prevTodos = prevState.todos;
+    // console.log("componentDidUpdate");
     // console.log(prevState);
     // console.log(this.state);
-    if (this.state.todos !== prevState.todos) {
+    if (nextTodos !== prevTodos) {
       console.log("Змінилась кількість пунктів списку");
       localStorage.setItem('todos', JSON.stringify(this.state.todos));
+    }
+    if (nextTodos.length > prevTodos.length && prevTodos.length!== 0) {
+      this.toggleModal();
     }
   }
  
@@ -54,7 +60,7 @@ class App extends Component {
       todos: [...prevState.todos, todo ],
       
     }))
-    console.log(todo);
+    // this.toggleModal();
   }
   toggleCompleted = todoId => {
     // this.setState(prevState => ({
@@ -96,11 +102,12 @@ class App extends Component {
     // console.log(modalRoot);
     return (
       <div>
-        <IconButton>Открыть модалку</IconButton>
-        <button type="button" onClick={this.toggleModal}>Дістань модалку</button>
+        
+        <IconButton onClick={this.toggleModal}><GalIcon width="40" height="40" fill="black"/></IconButton>
+        {/* <button type="button" onClick={this.toggleModal}>Дістань модалку</button> */}
         {showModal &&
           <Modal onClose={this.toggleModal}>
-          <h1>Модалка</h1>
+          <TodoEditor onSubmit={this.addTodo} />
           <button type="button" onClick={this.toggleModal}>Сховай модалку</button>
         </Modal> }
         <div>
@@ -109,7 +116,7 @@ class App extends Component {
           <p>Залишилось пунктів:{actualityTodosCount }</p>
         </div>
         
-        <TodoEditor onSubmit={this.addTodo} />
+        
         <h1>Список вдосконалень</h1>
         <Filter value={filter} onChange={this.changeFilter } />
         {/* <label>Сортування по назві:<input type="text" value={filter} onChange={this.changeFilter} /></label> */}
